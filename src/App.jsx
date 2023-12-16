@@ -110,16 +110,15 @@ const App = () => {
       item === editItem ? { universityDetails: updatedValues } : item
     );
 
-    // Reset the edit item and hide the edit form
-    setEditItem(null);
-    setEditFormVisible(false);
+   
 
     // Update the state with the modified list
     setUniversityDetailsList(updatedList);
   };
 
   const handleDelete = (item) => {
-    // Implement your logic for deleting an item
+    const updatedList = universityDetailsList.filter((i) => i !== item);
+    setUniversityDetailsList(updatedList);
   };
 
   return (
@@ -136,7 +135,7 @@ const App = () => {
             onUpdate={handleEdit} // Pass handleEdit function to InfoBox
             onDelete={handleDelete} // Pass handleDelete function to InfoBox
           />
-          <div style={{ marginTop: '2rem' }}>
+          <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center', width: '100%' }}>
             <Button type="primary" onClick={showCreateForm}>
               Create
             </Button>
@@ -144,7 +143,7 @@ const App = () => {
         </Space>
         <CreateForm visible={createFormVisible} onCancel={() => setCreateFormVisible(false)} onCreate={handleCreate} />
         {/* Pass necessary props to EditForm */}
-        <EditForm visible={editFormVisible} onCancel={handleEditFormCancel} onUpdate={handleEditFormUpdate} item={editItem} />
+        <EditForm visible={editFormVisible} onCancel={handleEditFormCancel} onUpdate={handleEdit} item={editItem} />
       </Content>
     </Layout>
   );
